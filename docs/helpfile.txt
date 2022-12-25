@@ -1,0 +1,33 @@
+First of all,  You need a Qt Creator ver 5.9.9 (or higher) with C++ 11 and MinGW_32 kit pack to run the source code.
+Open the Qt Creator, then open the "Source Code File". Click the "Newbee12.pro" to display the program.
+Click the "Run (Debug)" button (left lower corner) to run the source code, then the ALPHA MODEL will be shown.
+If you fail to run the source code in the debug mode, we recommend you to run the "ALPHA MODEL .exe" in the "ALPHA MODEL" file folder.
+-----------------------------------------------------------------------
+Test data: the Microsoft Excel: excel_example.xlsx
+-----------------------------------------------------------------------
+Import:
+Click the "File" button in the menu bar, then click the "Import File", "For Model Comparison" to import test data for "Model Fitting and Comparison" window. Click the "For Data Comparison" to import test data for "Data Comparison and Combination" window.
+
+Export:
+Click the "File" button in the menu bar, then click the "Export File", "Export Image" to export calculation results of the Coordinate System . Click the "Export Excel File" to export combined calculation results of "Data Comparison and Combination" window in .xlsx format. You can choose the exact path of the output image and the output Excel file.
+
+How to use the "Model Fitting and Comparison" window:
+After importing the test data in the way mentioned above, click the "Display" button and the "Model Comparison" button, the "Model Fitting and Comparison" window will be displayed. Click the "Model Fitting" button in this secondary window, the code will calculate and display curves on the coordinate system and values of undetermined parameters(Factors) on the right up corner. Click the options in the "Displayed Models" box to show or hide curves.
+
+How to use the "Data Comparison and Combination" window:
+After importing the test data in the way mentioned above, click the "Display" button and the "Data Comparison" button, the "Data Comparison and Combination" window will be displayed. Click the "Import - Show" button to display all original data points, roll the two selecting boxes on the right side to choose two groups data to be combined. Click the "Combination" button to combine them. (You can only combine four times according to the limit.) Click the "Combined - Show" button to display all combined data points. You can also use the options in the corresponding boxes to show or hide data points. There are some visual bugs in this coordinate system, but it doesn't affect the workflow.
+
+How to use the "Calculator" window:
+Click the "Display" button and the "Calculator" button. The "Calculator" window will show.
+
+How to use the "Analyze Results" window:
+After using the "Model Fitting" function in the "Model Fitting and Comparison" window, you can click the "Analyze" button and the "Fitting Analysis" button. The "Analyze Results" window will show.
+
+How to use the "Charts Setting" window:
+Click the "Settings" button and the "Coordinate System" button. The "Charts Setting" window will show. If you edit the value in this window, remember to click the "Save" button to apply them into the GUI. Some values have corresponding "OK" buttons. You need to click them first after edit, then click the "Save". Click the "Initialization" button to return all values to default setting (This button may have some bugs, but not affect the workflow). 
+
+How to use the "Tools" function:
+The "Tools" button have sub buttons: "Clear", "Cross Cursor", "Markline" and "Zoom". "Clear" button is easy to understand and use. Click the "Cross Cursor" button and move the mouse over the coordinate system, you can see the cross easily. Click the "Cross Cursor" button again to close this function. Click the "Zoom" button and move the mouse over the coordinate system. You can click and hold the left mouse button to pull an area. This area will be enlarged. Click the "Zoom" button again to close this function, and the area will return to normal state.
+------------------------------------------------------------------------------------------------------------------------------------
+The "Help" button can not be used for now. The "Excel Example" button is linked to the test data file: excel_example.xlsx. If you want to know the format of the imported file, you can open excel_example.xlsx.
+
