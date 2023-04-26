@@ -42,6 +42,9 @@ chartview::chartview(QWidget *parent) : QChartView(parent),
 
             PF_SH_group[i]=0;
             PF_kn_group[i]=0;
+
+            th_SH_group[i]=0;
+            th_kn_group[i]=0;
         }
         for(int i=0;i<120;i++)
         {
@@ -59,57 +62,68 @@ chartview::chartview(QWidget *parent) : QChartView(parent),
         showlabel1->setGeometry(760,93,200,50);
         showlabel1->setStyleSheet(label_str1);
 
-        colorlabel1->setGeometry(727,110,20,20);
 
+        colorlabel1->setGeometry(727,110,20,20);
         pe1.setColor(QPalette::Background,Qt::black);
         colorlabel1->setPalette(pe1);
         colorlabel1->setAutoFillBackground(true);
+
 
 
         showlabel2->setText("Tokyo model");
         showlabel2->setGeometry(760,123,200,50);
         showlabel2->setStyleSheet(label_str1);
 
+
         colorlabel2->setGeometry(727,140,20,20);
         pe2.setColor(QPalette::Background,QColor(255,140,0));
         colorlabel2->setPalette(pe2);
         colorlabel2->setAutoFillBackground(true);
 
+
         showlabel3->setText("Patchy model");
         showlabel3->setGeometry(760,153,200,50);
         showlabel3->setStyleSheet(label_str1);
+
 
         colorlabel3->setGeometry(727,170,20,20);
         pe3.setColor(QPalette::Background,QColor(60,179,113));
         colorlabel3->setPalette(pe3);
         colorlabel3->setAutoFillBackground(true);
 
+
         showlabel4->setText("G-C model");
         showlabel4->setGeometry(760,183,200,50);
         showlabel4->setStyleSheet(label_str1);
+
 
         colorlabel4->setGeometry(727,200,20,20);
         pe4.setColor(QPalette::Background,QColor(72,61,139));
         colorlabel4->setPalette(pe4);
         colorlabel4->setAutoFillBackground(true);
 
+
         showlabel5->setText("P-F model");
         showlabel5->setGeometry(760,213,200,50);
         showlabel5->setStyleSheet(label_str1);
+
 
         colorlabel5->setGeometry(727,230,20,20);
         pe5.setColor(QPalette::Background,QColor(148,0,211));
         colorlabel5->setPalette(pe5);
         colorlabel5->setAutoFillBackground(true);
 
+
         showlabel6->setText("Hybrid model");
         showlabel6->setGeometry(760,243,200,50);
         showlabel6->setStyleSheet(label_str1);
+
 
         colorlabel6->setGeometry(727,260,20,20);
         pe6.setColor(QPalette::Background,QColor(30,144,255));
         colorlabel6->setPalette(pe6);
         colorlabel6->setAutoFillBackground(true);
+
 
         showlabel7->setText("Original Data 1");
         showlabel7->setGeometry(810,102,200,30);
@@ -250,12 +264,15 @@ chartview::chartview(QWidget *parent) : QChartView(parent),
       m_LineChart->setTheme(QChart::ChartThemeBlueNcs);
       m_LineChart1->setTheme(QChart::ChartThemeBlueNcs);
 
+      m_Series6->setVisible(false);
+
       m_LineChart->addSeries(m_Series0); m_LineChart1->addSeries(input_Series0);
       m_LineChart->addSeries(m_Series1); m_LineChart1->addSeries(input_Series1);
       m_LineChart->addSeries(m_Series2); m_LineChart1->addSeries(input_Series2);
       m_LineChart->addSeries(m_Series3); m_LineChart1->addSeries(input_Series3);
       m_LineChart->addSeries(m_Series4);
       m_LineChart->addSeries(m_Series5);
+      m_LineChart->addSeries(m_Series6);
 
       m_LineChart->addSeries(fitting_Series3);
 
@@ -411,6 +428,14 @@ chartview::chartview(QWidget *parent) : QChartView(parent),
       m_Series5->setPen(m_Series5_pen);
       m_Series5->setName("Hybrid model");
 
+      m_Series6_pen.setColor(QColor(0,0,0));
+      m_Series6_pen.setStyle(Qt::DashLine);
+      m_Series6_pen.setWidth(4);
+      m_Series6_pen.setCapStyle(Qt::RoundCap);
+      m_Series6_pen.setJoinStyle(Qt::RoundJoin);
+      m_Series6->setPen(m_Series6_pen);
+      m_Series6->setName("Theory model");
+
       input_Series0->setName("Original Data 1");
       input_Series0->setMarkerSize(8);
       input_Series0->setBrush(QColor(0,191,255));
@@ -553,6 +578,8 @@ void chartview::calculate()
         GC_kn_group[i] = pow((1 - GC_SH_group[i]),2);
         //PF
         PF_kn_group[i] = (1 - pow(PF_SH_group[i],2) + 2 * pow((1 - PF_SH_group[i]),2)/log(PF_SH_group[i]));
+        //th
+        th_kn_group[i] = pow((1 - th_SH_group[i]),4);
         //Hybrid
         Hybrid_kn_group[i] = pow(GC_kn_group[i],(1/(1 + pow((Hybrid_SH_group[i]/Hybrid_alpha),Hybrid_Beta)))) * pow(PF_kn_group[i],(1 - (1/(1 + pow((Hybrid_SH_group[i]/Hybrid_alpha),Hybrid_Beta)))));
     }
@@ -859,6 +886,9 @@ void chartview::attach_Axis()
     m_Series5->attachAxis(m_AxisX);
     m_Series5->attachAxis(m_AxisY);
 
+    m_Series6->attachAxis(m_AxisX);
+    m_Series6->attachAxis(m_AxisY);
+
 
     input_Series0->attachAxis(m_AxisX1);
     input_Series0->attachAxis(m_AxisY1);
@@ -957,6 +987,10 @@ void chartview::attach_log_Axis()
 
     m_Series5->detachAxis(m_AxisX);
     m_Series5->detachAxis(m_AxisY);
+
+    m_Series6->detachAxis(m_AxisX);
+    m_Series6->detachAxis(m_AxisY);
+
 
 
     input_Series0->detachAxis(m_AxisX1);

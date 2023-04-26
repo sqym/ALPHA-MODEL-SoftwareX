@@ -58,8 +58,6 @@ theapp::theapp(QWidget *parent)
     filemenu_input_child->addSeparator();
     QAction * inputdata_self = filemenu_input_child->addAction("For Data Comparison");
 
-    QAction * calbtn =workmenu->addAction("Calculator");
-    workmenu->addSeparator();
     QAction * data_model = workmenu->addAction("Model Comparison");
     workmenu->addSeparator();
     QAction * data_compare = workmenu->addAction("Data Comparison");
@@ -190,15 +188,6 @@ theapp::theapp(QWidget *parent)
             }
         }
 
-
-
-    connect(calbtn,&QAction::triggered,[=](){
-        calwidget->show();
-        currentTime = QTime::currentTime();
-        currentTime_text = currentTime.toString("hh:mm:ss");
-        status_textedit->append(currentTime_text);
-        status_textedit->append("Calculator works.");
-    });
 
     connect(tablewidget1_btn,&QAction::triggered,[=](){
 
@@ -460,7 +449,8 @@ theapp::theapp(QWidget *parent)
                                                 "2. Data array in order of column. The group has two columns: Saturation data and Permeability data. "
                                                 "Model Compare function can only import single file in one time.\n"
                                                 "3. Data will be read from the third row of the file.\n"
-                                                "More questions can be answered in Help function.");
+                                                "More questions can be answered in Help function.\n"
+                                                "4. Users need to preprocess the imported data to ensure the validation of the fitting results.");
 
 
 
@@ -492,6 +482,9 @@ theapp::theapp(QWidget *parent)
 
             m_LineChartview->PF_SH_group[i]=0;
             m_LineChartview->PF_kn_group[i]=0;
+
+            m_LineChartview->th_SH_group[i]=0;
+            m_LineChartview->th_kn_group[i]=0;
         }
 
 
@@ -543,6 +536,7 @@ theapp::theapp(QWidget *parent)
                 m_LineChartview->Patchy_SH_group[i-3] = txt.toDouble();
                 m_LineChartview->GC_SH_group[i-3] = txt.toDouble();
                 m_LineChartview->PF_SH_group[i-3] = txt.toDouble();
+                m_LineChartview->th_SH_group[i-3] = txt.toDouble();
                 m_LineChartview->Hybrid_SH_group[i-3] = txt.toDouble();
 
                 x_sum += txt.toDouble();
@@ -651,6 +645,7 @@ theapp::theapp(QWidget *parent)
             m_LineChartview->Patchy_SH_group[i] = m_LineChartview->Masuda_SH_group[i];
             m_LineChartview->GC_SH_group[i] = m_LineChartview->Masuda_SH_group[i];
             m_LineChartview->PF_SH_group[i] = m_LineChartview->Masuda_SH_group[i];
+            m_LineChartview->th_SH_group[i] = m_LineChartview->Masuda_SH_group[i];
             m_LineChartview->Hybrid_SH_group[i] = m_LineChartview->Masuda_SH_group[i];
 
         }
@@ -937,8 +932,14 @@ theapp::theapp(QWidget *parent)
     enforce_show = new QCheckBox(analyse_dialog);
     enforce_show->setText("Highlight Best Fitting Model");
     enforce_show->setCheckState(Qt::Unchecked);
-    enforce_show->setGeometry(10,190,290,60);
+    enforce_show->setGeometry(10,180,290,60);
     enforce_show->setFont(fit_font);
+
+    thmodel_show = new QCheckBox(analyse_dialog);
+    thmodel_show->setText("Highlight the Theory Capillary Model");
+    thmodel_show->setCheckState(Qt::Unchecked);
+    thmodel_show->setGeometry(10,220,290,60);
+    thmodel_show->setFont(fit_font);
 
     QList<QLineSeries*>series_list;
     series_list.append(m_LineChartview->m_Series1);
@@ -972,6 +973,28 @@ theapp::theapp(QWidget *parent)
             currentTime_text = currentTime.toString("hh:mm:ss");
             status_textedit->append(currentTime_text);
             status_textedit->append("Highlight Best Fitting Model. Hide other model curves.");
+        }
+
+     });
+
+    connect(thmodel_show,&QCheckBox::toggled,[=](){
+        if(thmodel_show->checkState() == Qt::Unchecked)
+        {
+           m_LineChartview->m_Series6->setVisible(false);
+
+           currentTime = QTime::currentTime();
+           currentTime_text = currentTime.toString("hh:mm:ss");
+           status_textedit->append(currentTime_text);
+           status_textedit->append("Hide the theory model.");
+        }
+        if(thmodel_show->checkState() == Qt::Checked)
+        {
+            m_LineChartview->m_Series6->setVisible(true);
+
+            currentTime = QTime::currentTime();
+            currentTime_text = currentTime.toString("hh:mm:ss");
+            status_textedit->append(currentTime_text);
+            status_textedit->append("Display the theory model.");
         }
 
      });
@@ -1225,6 +1248,7 @@ theapp::theapp(QWidget *parent)
         m_LineChartview->addPointToChart_model_ver(m_LineChartview->m_Series2,m_LineChartview->Patchy_SH_group,m_LineChartview->Patchy_kr_group);
         m_LineChartview->addPointToChart_model_ver(m_LineChartview->m_Series3,m_LineChartview->GC_SH_group,m_LineChartview->GC_kn_group);
         m_LineChartview->addPointToChart_model_ver(m_LineChartview->m_Series4,m_LineChartview->PF_SH_group,m_LineChartview->PF_kn_group);
+        m_LineChartview->addPointToChart_model_ver(m_LineChartview->m_Series6,m_LineChartview->th_SH_group,m_LineChartview->th_kn_group);
         m_LineChartview->addPointToChart_model_ver(m_LineChartview->m_Series5,m_LineChartview->Hybrid_SH_group,m_LineChartview->Hybrid_kn_group);
 
         currentTime = QTime::currentTime();
@@ -1252,6 +1276,7 @@ theapp::theapp(QWidget *parent)
         m_LineChartview->m_Series3->clear();
         m_LineChartview->m_Series4->clear();
         m_LineChartview->m_Series5->clear();
+        m_LineChartview->m_Series6->clear();
 
         m_LineChartview->addPointToChart_model_ver(m_LineChartview->m_Series1,m_LineChartview->Masuda_SH_group,m_LineChartview->Masuda_kn_group);
         m_LineChartview->addPointToChart_model_ver(m_LineChartview->m_Series2,m_LineChartview->Patchy_SH_group,m_LineChartview->Patchy_kr_group);
@@ -1290,6 +1315,7 @@ theapp::theapp(QWidget *parent)
         m_LineChartview->m_Series3->clear();
         m_LineChartview->m_Series4->clear();
         m_LineChartview->m_Series5->clear();
+        m_LineChartview->m_Series6->clear();
 
         m_LineChartview->addPointToChart_model_ver(m_LineChartview->m_Series1,m_LineChartview->Masuda_SH_group,m_LineChartview->Masuda_kn_group);
         m_LineChartview->addPointToChart_model_ver(m_LineChartview->m_Series2,m_LineChartview->Patchy_SH_group,m_LineChartview->Patchy_kr_group);
@@ -1600,6 +1626,7 @@ theapp::theapp(QWidget *parent)
         m_LineChartview->m_Series3->clear();
         m_LineChartview->m_Series4->clear();
         m_LineChartview->m_Series5->clear();
+        m_LineChartview->m_Series6->clear();
 
         fit_count = 0;
 

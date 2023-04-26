@@ -77,6 +77,11 @@ public:
     double PF_SH_group[60];
     double PF_kn;
     double PF_SH;
+    //Theory
+    double th_kn_group[60];
+    double th_SH_group[60];
+    double th_kn;
+    double th_SH;
 
     //Hybrid
     double Hybrid_kn_group[60];
@@ -171,6 +176,9 @@ public:
 
     QPen m_Series5_pen;
     QLineSeries *m_Series5 = new QLineSeries();
+
+    QPen m_Series6_pen;
+    QLineSeries *m_Series6 = new QLineSeries();
 
     QScatterSeries *input_Series0 = new QScatterSeries();
     QScatterSeries *input_Series1 = new QScatterSeries();

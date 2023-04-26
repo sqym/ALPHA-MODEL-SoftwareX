@@ -82,6 +82,7 @@ public:
 
     QTextEdit *analyse_result;
     QCheckBox *enforce_show;
+    QCheckBox *thmodel_show;
 
 
     //Masuda
@@ -108,6 +109,11 @@ public:
     double PF_SH_group[60];
     double PF_kn;
     double PF_SH;
+    //Theory
+    double th_kn_group[60];
+    double th_SH_group[60];
+    double th_kn;
+    double th_SH;
 
     //Hybrid
     double Hybrid_kn_group[60];
