@@ -1,5 +1,5 @@
 Name of the software/program: 
-ALPHA MODEL ver1.0
+ALPHA MODEL ver1.02
 Name of the project: 
 Newbee12.pro
 
@@ -27,4 +27,4 @@ The helpfile.txt contains instruction guide that provides information on how to 
 The test data is excel_example.xlsx. You can use this file as input data.
 ----------------------------------------------------------------------------------------------------------------------------
 Warning:
-1. The reference exponent range of the Tokyo model is 0 to 20. If the inputted exponent value is beyond the reference range, the "Factor Change" function in the "Model Fitting and Comparison" module may lead to serious deviations. We will fix this issue in the subsequent versions of the software.
+1. The reference exponent range of the Tokyo model is 0 to 20. If the inputted exponent value is beyond the reference range, the "Factor Change" function in the "Model Fitting and Comparison" module may lead to serious deviations and trigger the warning window.
