@@ -33,5 +33,4 @@ The "Tools" button have sub buttons: "Clear", "Cross Cursor", "Markline" and "Zo
 The "Help" button can not be used for now. The "Excel Example" button is linked to the test data file: excel_example.xlsx. If you want to know the format of the imported file, you can open excel_example.xlsx.
 ------------------------------------------------------------------------------------------------------------------------------------
 Warning:
-1. The reference exponent range of the Tokyo model is 0 to 20. If the inputted exponent value is beyond the reference range, the "Factor Change" function in the "Model Fitting and Comparison" module may lead to serious deviations. We will fix this issue in the subsequent versions of the software.
-
+1. The reference exponent range of the Tokyo model is 0 to 20. If the inputted exponent value is beyond the reference range, the "Factor Change" function in the "Model Fitting and Comparison" module may lead to serious deviations and trigger the warning window.
