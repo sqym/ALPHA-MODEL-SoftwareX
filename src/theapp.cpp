@@ -19,7 +19,7 @@ theapp::theapp(QWidget *parent)
 
     setFixedSize(1200,900);
     QFont titlefont("Times New Roman");
-    setWindowTitle("ALHPA MODEL");  //A Multitask Visualized Software for Correlation Analysis and Models Prediction of Permeability of Hydrate Sediment
+    setWindowTitle("ALPHA MODEL");  //A Multitask Visualized Software for Correlation Analysis and Models Prediction of Permeability of Hydrate Sediment
     setFont(titlefont);
 
 
@@ -567,6 +567,19 @@ theapp::theapp(QWidget *parent)
             status_textedit->append(currentTime_text);
             status_textedit->append("Original Data have been imported for Model Compare function.");
             status_textedit->append("SH  kn");
+
+            for(int i=0;i < 60;i++)
+            {
+                if(m_LineChartview->input_SH[i] < 0 || m_LineChartview->input_SH[i] > 1
+                        || m_LineChartview->input_kn[i] < 0 || m_LineChartview->input_kn[i] > 1)
+                {
+                QMessageBox::information(this,"Warning","ALPHA MODEL has detected suspected erroneous data.\n"
+                                                        "Please check the validation of the imported data "
+                                                        "before using other functions!");
+                break;
+                }
+            }
+
             for(int i=0;i < 60;i++)
             {
                 if(m_LineChartview->input_SH[i] == 0 && m_LineChartview->input_kn[i] == 0){break;}
@@ -577,6 +590,7 @@ theapp::theapp(QWidget *parent)
                 status_textedit->append(txt2);
 
             }
+
 
          }
         }
@@ -981,6 +995,8 @@ theapp::theapp(QWidget *parent)
         if(thmodel_show->checkState() == Qt::Unchecked)
         {
            m_LineChartview->m_Series6->setVisible(false);
+           m_LineChartview->showlabel61->setVisible(false);
+           m_LineChartview->colorlabel61->setVisible(false);
 
            currentTime = QTime::currentTime();
            currentTime_text = currentTime.toString("hh:mm:ss");
@@ -990,6 +1006,8 @@ theapp::theapp(QWidget *parent)
         if(thmodel_show->checkState() == Qt::Checked)
         {
             m_LineChartview->m_Series6->setVisible(true);
+            m_LineChartview->showlabel61->setVisible(true);
+            m_LineChartview->colorlabel61->setVisible(true);
 
             currentTime = QTime::currentTime();
             currentTime_text = currentTime.toString("hh:mm:ss");
@@ -1048,7 +1066,7 @@ theapp::theapp(QWidget *parent)
             status_textedit->append(RMSE_name_list[RMSE_min_count]);
             status_textedit->append("RMSE:");
             status_textedit->append(QString::number(RMSE_list[RMSE_min_count]));
-            status_textedit->append("All models' RMSE: ");
+            status_textedit->append("Commonly-used models' RMSE: ");
             status_textedit->append(RMSE_name_list[0]);
             status_textedit->append(QString::number(RMSE_list[0]));
             status_textedit->append(RMSE_name_list[1]);
@@ -1066,7 +1084,7 @@ theapp::theapp(QWidget *parent)
             analyse_result->append("The Best Fitting Model:  " + RMSE_name_list[RMSE_min_count]);
             analyse_result->append("RMSE:  " + QString::number(RMSE_list[RMSE_min_count]));
             analyse_result->setTextColor(Qt::black);
-            analyse_result->append("All models' RMSE:");
+            analyse_result->append("Commonly-used models' RMSE:");
             analyse_result->append(RMSE_name_list[0] + ":  " + QString::number(RMSE_list[0]));
             analyse_result->append(RMSE_name_list[1] + ":  " + QString::number(RMSE_list[1]));
             analyse_result->append(RMSE_name_list[2] + ":  " + QString::number(RMSE_list[2]));
@@ -1106,6 +1124,11 @@ theapp::theapp(QWidget *parent)
 
 
     connect(data_model,&QAction::triggered,[=](){
+
+        QMessageBox::information(this,"Warning","If users want to use the 'Factor Change' function,"
+                                                "please ensure that the edited value is set in a reasonable range.\n"
+                                                "For example: The reference range of the exponent N in the Tokyo model is 0-20."
+                                                "If inputed value is out of the range, users will receive a warning.");
 
         m_LineChartview->showlabel1->show();
         m_LineChartview->showlabel2->show();
@@ -1259,6 +1282,11 @@ theapp::theapp(QWidget *parent)
     });
     connect(FirstBox_changebtn,&QPushButton::clicked,[=](){
 
+        if(Masuda_N_edit->text().toDouble() > 20 || Masuda_N_edit->text().toDouble() < 0)
+        {QMessageBox::information(this,"Warning","The inputted value of the exponent N in the Tokyo model is beyond the reasonable range.\n"
+                                                 "Please check and edit the corresponding value.");}
+
+        else{
         m_LineChartview->Masuda_N = Masuda_N_edit->text().toDouble();
         m_LineChartview->Patchy_N = Patchy_N_edit->text().toDouble();
         m_LineChartview->Hybrid_alpha = Hybrid_alpha_edit->text().toDouble();
@@ -1287,7 +1315,7 @@ theapp::theapp(QWidget *parent)
         currentTime = QTime::currentTime();
         currentTime_text = currentTime.toString("hh:mm:ss");
         status_textedit->append(currentTime_text);
-        status_textedit->append("Factors and Model Curves have been changed.");
+        status_textedit->append("Factors and Model Curves have been changed.");}
 
     });
 
@@ -1412,6 +1440,7 @@ theapp::theapp(QWidget *parent)
         m_LineChartview->showlabel4->hide();
         m_LineChartview->showlabel5->hide();
         m_LineChartview->showlabel6->hide();
+        m_LineChartview->showlabel61->hide();
 
         m_LineChartview->colorlabel1->hide();
         m_LineChartview->colorlabel2->hide();
@@ -1419,6 +1448,7 @@ theapp::theapp(QWidget *parent)
         m_LineChartview->colorlabel4->hide();
         m_LineChartview->colorlabel5->hide();
         m_LineChartview->colorlabel6->hide();
+        m_LineChartview->colorlabel61->hide();
 
         m_LineChartview->setChart(m_LineChartview->m_LineChart1);
         m_LineChartview->current_chart = 1;
@@ -1827,6 +1857,7 @@ QGroupBox *theapp::createFirstBox()
       modelbox3 = new QCheckBox(tr("G-C model"),FirstBox);
       modelbox4 = new QCheckBox(tr("P-F model"),FirstBox);
       modelbox5 = new QCheckBox(tr("Hybrid model"),FirstBox);
+      modelbox6 = new QCheckBox(tr("Capillary model"),FirstBox);
 
       Firstgroup->setExclusive(false);
 
@@ -1836,6 +1867,7 @@ QGroupBox *theapp::createFirstBox()
       modelbox3->setGeometry(10,120,180,30);
       modelbox4->setGeometry(10,150,180,30);
       modelbox5->setGeometry(10,180,180,30);
+      modelbox6->setGeometry(10,210,180,30);
 
       modelbox0->setCheckState(Qt::Checked);
       modelbox1->setCheckState(Qt::Checked);
@@ -1843,6 +1875,7 @@ QGroupBox *theapp::createFirstBox()
       modelbox3->setCheckState(Qt::Checked);
       modelbox4->setCheckState(Qt::Checked);
       modelbox5->setCheckState(Qt::Checked);
+      modelbox6->setCheckState(Qt::Unchecked);
 
       modelbox0->setStyleSheet(checkboxstyle);
       modelbox1->setStyleSheet(checkboxstyle);
@@ -1850,6 +1883,7 @@ QGroupBox *theapp::createFirstBox()
       modelbox3->setStyleSheet(checkboxstyle);
       modelbox4->setStyleSheet(checkboxstyle);
       modelbox5->setStyleSheet(checkboxstyle);
+      modelbox6->setStyleSheet(checkboxstyle);
 
       Firstgroup->addButton(modelbox0);
       Firstgroup->addButton(modelbox1);
@@ -1857,6 +1891,7 @@ QGroupBox *theapp::createFirstBox()
       Firstgroup->addButton(modelbox3);
       Firstgroup->addButton(modelbox4);
       Firstgroup->addButton(modelbox5);
+      Firstgroup->addButton(modelbox6);
 
 
       connect(Firstgroup, static_cast<void(QButtonGroup::*)(QAbstractButton *, bool)>(&QButtonGroup::buttonToggled),
@@ -1892,6 +1927,17 @@ QGroupBox *theapp::createFirstBox()
           {m_LineChartview->m_Series5->setVisible(false);}
           else if(modelbox5->checkState() == Qt::Checked)
           {m_LineChartview->m_Series5->setVisible(true);}
+
+          if(modelbox6->checkState() == Qt::Unchecked)
+          {
+          m_LineChartview->m_Series6->setVisible(false);
+          m_LineChartview->showlabel61->setVisible(false);
+          m_LineChartview->colorlabel61->setVisible(false);}
+          else if(modelbox6->checkState() == Qt::Checked)
+          {
+           m_LineChartview->m_Series6->setVisible(true);
+           m_LineChartview->showlabel61->setVisible(true);
+           m_LineChartview->colorlabel61->setVisible(true);}
 
       });
 

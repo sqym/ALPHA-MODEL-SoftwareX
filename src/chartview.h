@@ -224,6 +224,7 @@ public:
     QLabel *showlabel4 = new QLabel(this);
     QLabel *showlabel5 = new QLabel(this);
     QLabel *showlabel6 = new QLabel(this);
+    QLabel *showlabel61 = new QLabel(this);
 
     QLabel *colorlabel1 = new QLabel(this);
     QLabel *colorlabel2 = new QLabel(this);
@@ -231,6 +232,7 @@ public:
     QLabel *colorlabel4 = new QLabel(this);
     QLabel *colorlabel5 = new QLabel(this);
     QLabel *colorlabel6 = new QLabel(this);
+    QLabel *colorlabel61 = new QLabel(this);
 
     QPalette pe1;
     QPalette pe2;

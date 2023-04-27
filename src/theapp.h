@@ -170,6 +170,7 @@ public:
     QCheckBox *modelbox3;
     QCheckBox *modelbox4;
     QCheckBox *modelbox5;
+    QCheckBox *modelbox6;
 
     QPushButton *SecondBox_starbtn;
     QPushButton *SecondBox_combined_show_btn;
@@ -349,7 +350,7 @@ public:
     QPushButton *color_savebtn2_;
 
 
-    QString excel_str = "file:///C:/ALHPA MODEL/excel_example.xlsx";
+    QString excel_str = "file:///C:/ALPHA MODEL/excel_example.xlsx";
 
     QString barstyle = "QMenuBar{background-color:rgb(244,232,210);"
                        "border: 2px solid gray;"

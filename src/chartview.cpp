@@ -116,7 +116,7 @@ chartview::chartview(QWidget *parent) : QChartView(parent),
 
         showlabel6->setText("Hybrid model");
         showlabel6->setGeometry(760,243,200,50);
-        showlabel6->setStyleSheet(label_str1);
+        showlabel6->setStyleSheet(label_str1);        
 
 
         colorlabel6->setGeometry(727,260,20,20);
@@ -124,6 +124,16 @@ chartview::chartview(QWidget *parent) : QChartView(parent),
         colorlabel6->setPalette(pe6);
         colorlabel6->setAutoFillBackground(true);
 
+        showlabel61->setText("Capillary model");
+        showlabel61->setGeometry(760,273,200,50);
+        showlabel61->setStyleSheet(label_str1);
+        showlabel61->hide();
+
+        colorlabel61->setGeometry(727,290,20,20);
+        pe7.setColor(QPalette::Background,QColor(255,0,0));
+        colorlabel61->setPalette(pe7);
+        colorlabel61->setAutoFillBackground(true);
+        colorlabel61->hide();
 
         showlabel7->setText("Original Data 1");
         showlabel7->setGeometry(810,102,200,30);
@@ -428,7 +438,7 @@ chartview::chartview(QWidget *parent) : QChartView(parent),
       m_Series5->setPen(m_Series5_pen);
       m_Series5->setName("Hybrid model");
 
-      m_Series6_pen.setColor(QColor(0,0,0));
+      m_Series6_pen.setColor(QColor(255,0,0));
       m_Series6_pen.setStyle(Qt::DashLine);
       m_Series6_pen.setWidth(4);
       m_Series6_pen.setCapStyle(Qt::RoundCap);
