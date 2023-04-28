@@ -1,12 +1,11 @@
-Name of the program: 
+Name of the software/program: 
+ALPHA MODEL ver1.03
+Name of the project: 
 Newbee12.pro
-Name of the code: 
-ALPHA MODEL
 
 Authors:  
-Hao Weng*a, Zhengyang Liu*b, Dayong Wang*a
-*a Key Laboratory of Ocean Energy Utilization and Energy Conservation of Ministry of Education, School of Energy and Power Engineering, Dalian University of Technology, Dalian 116023, P. R. China
-*b Department of Mechanical Engineering, National University of Singapore, 9 Engineering Drive 1, 117575 Singapore, Singapore
+Hao Weng, Zhengyang Liu, Dayong Wang
+Key Laboratory of Ocean Energy Utilization and Energy Conservation of Ministry of Education, School of Energy and Power Engineering, Dalian University of Technology, Dalian 116023, P. R. China
   
 Corresponding author. 
 Dayong Wang
