@@ -589,7 +589,7 @@ void chartview::calculate()
         //PF
         PF_kn_group[i] = (1 - pow(PF_SH_group[i],2) + 2 * pow((1 - PF_SH_group[i]),2)/log(PF_SH_group[i]));
         //th
-        th_kn_group[i] = pow((1 - th_SH_group[i]),4);
+        th_kn_group[i] = pow((1 - th_SH_group[i]),2.5);
         //Hybrid
         Hybrid_kn_group[i] = pow(GC_kn_group[i],(1/(1 + pow((Hybrid_SH_group[i]/Hybrid_alpha),Hybrid_Beta)))) * pow(PF_kn_group[i],(1 - (1/(1 + pow((Hybrid_SH_group[i]/Hybrid_alpha),Hybrid_Beta)))));
     }

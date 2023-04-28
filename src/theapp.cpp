@@ -1125,10 +1125,7 @@ theapp::theapp(QWidget *parent)
 
     connect(data_model,&QAction::triggered,[=](){
 
-        QMessageBox::information(this,"Warning","If users want to use the 'Factor Change' function,"
-                                                "please ensure that the edited value is set in a reasonable range.\n"
-                                                "For example: The reference range of the exponent N in the Tokyo model is 0-20."
-                                                "If inputed value is out of the range, users will receive a warning.");
+        QMessageBox::information(this,"Warning","The reference range of the exponent N in the Tokyo model is 0-20.");
 
         m_LineChartview->showlabel1->show();
         m_LineChartview->showlabel2->show();
@@ -1284,7 +1281,7 @@ theapp::theapp(QWidget *parent)
 
         if(Masuda_N_edit->text().toDouble() > 20 || Masuda_N_edit->text().toDouble() < 0)
         {QMessageBox::information(this,"Warning","The inputted value of the exponent N in the Tokyo model is beyond the reasonable range.\n"
-                                                 "Please check and edit the corresponding value.");}
+                                                 "Please re-input the corresponding value.");}
 
         else{
         m_LineChartview->Masuda_N = Masuda_N_edit->text().toDouble();
