@@ -1,5 +1,5 @@
 Name of the software/program: 
-ALPHA MODEL ver1.02
+ALPHA MODEL ver1.03
 Name of the project: 
 Newbee12.pro
 
